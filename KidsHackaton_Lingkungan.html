@@ -1,273 +1,189 @@
 <!doctype html>
 <html lang="id">
 <head>
-  <meta charset="utf-8">
-  <title>Kuis Edukasi Lingkungan</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin:0;
-      background: linear-gradient(135deg, #c8facc, #a7e8bd, #d3f3f9);
-      color:#034d2c;
-      background-attachment: fixed;
-    }
-    header {
-      background: linear-gradient(90deg, #027a43, #04a863, #2ecc71);
-      color:white; text-align:center;
-      padding:2rem 1rem;
-      box-shadow:0 4px 12px rgba(0,0,0,.2);
-      border-bottom-left-radius: 40px;
-      border-bottom-right-radius: 40px;
-    }
-    header h1 { margin:0; font-size:2rem; }
-    header p { margin:0.5rem 0 0; font-size:1.1rem; }
-    main { max-width:800px; margin:2rem auto; padding:1rem; }
-
-    .card {
-      background:white;
-      padding:2rem;
-      border-radius:20px;
-      box-shadow:0 8px 25px rgba(0,0,0,.1);
-      margin-bottom:2rem;
-      animation: fadeIn .8s ease;
-    }
-
-    button {
-      display:block;
-      width:100%;
-      margin:.7rem 0;
-      padding:.8rem 1.2rem;
-      border:2px solid #04a863;
-      border-radius:12px;
-      background:white;
-      color:#034d2c;
-      font-weight:bold;
-      cursor:pointer;
-      transition: all .3s;
-    }
-    button:hover { 
-      background:#04a863; 
-      color:white; 
-      box-shadow:0 0 10px #04a863; 
-      transform:scale(1.03); 
-    }
-
-    .result { font-weight:bold; margin-top:1rem; font-size:1.2rem; text-align:center; }
-    .correct { color: green; }
-    .wrong { color: red; }
-
-    /* Animasi */
-    @keyframes fadeIn {
-      from {opacity:0; transform: translateY(20px);}
-      to {opacity:1; transform: translateY(0);}
-    }
-
-    /* Dekorasi tambahan */
-    .decor-leaf {
-      position: fixed;
-      width: 60px;
-      opacity: 0.2;
-      z-index:-1;
-    }
-    .leaf1 { top:20px; left:20px; }
-    .leaf2 { bottom:30px; right:40px; }
-    .leaf3 { top:150px; right:20px; }
-    .leaf4 { bottom:100px; left:30px; }
-
-    /* Paragraf dengan ikon */
-    .icon-text::before {
-      margin-right:8px;
-      font-size:1.2rem;
-    }
-    .air::before { content:"💧"; }
-    .udara::before { content:"🌬️"; }
-    .tanah::before { content:"🌱"; }
-    .satwa::before { content:"🐝"; }
-    .sampah::before { content:"🗑️"; }
-    .iklim::before { content:"☀️"; }
-    .hutan::before { content:"🌳"; }
-    .generasi::before { content:"👦"; }
-    .syukur::before { content:"🙏"; }
-    .umum::before { content:"🌍"; }
-  </style>
+<meta charset="utf-8">
+<title>Kuis Edukasi Lingkungan</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  body {font-family:'Segoe UI',sans-serif;margin:0;background:linear-gradient(135deg,#c8facc,#a7e8bd,#d3f3f9);color:#034d2c;overflow-x:hidden;}
+  header {background:linear-gradient(90deg,#027a43,#04a863,#2ecc71);color:white;text-align:center;padding:2rem 1rem;box-shadow:0 4px 12px rgba(0,0,0,.2);border-bottom-left-radius:40px;border-bottom-right-radius:40px;animation:glowHeader 3s ease-in-out infinite alternate;}
+  @keyframes glowHeader {0% {box-shadow:0 4px 12px rgba(0,0,0,.2),0 0 10px #04a863;}50% {box-shadow:0 4px 12px rgba(0,0,0,.2),0 0 20px #28a745;}100% {box-shadow:0 4px 12px rgba(0,0,0,.2),0 0 10px #04a863;}}
+  header h1{margin:0;font-size:2rem;} header p{margin:.5rem 0 0;font-size:1.1rem;}
+  main{max-width:800px;margin:2rem auto;padding:1rem;}
+  .card{background:white;padding:2rem;border-radius:20px;box-shadow:0 8px 25px rgba(0,0,0,.1);margin-bottom:2rem;animation:fadeIn .8s ease;position:relative;z-index:1;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+  button{display:block;width:100%;margin:.7rem 0;padding:.8rem 1.2rem;border:2px solid #04a863;border-radius:12px;background:white;color:#034d2c;font-weight:bold;cursor:pointer;transition: all .3s;}
+  button:hover{background:#04a863;color:white;box-shadow:0 0 15px #04a863,0 0 30px #28a745;transform:scale(1.05) rotate(-1deg);animation:shake .3s ease-in-out;}
+  @keyframes shake{0%{transform:scale(1.05) rotate(0deg);}25%{transform:scale(1.05) rotate(-2deg);}50%{transform:scale(1.05) rotate(2deg);}75%{transform:scale(1.05) rotate(-2deg);}100%{transform:scale(1.05) rotate(0deg);}}
+  .result{font-weight:bold;margin-top:1rem;font-size:1.2rem;text-align:center;}
+  .correct{color:green;}.wrong{color:red;}
+  @keyframes correctAnim{0%{transform:scale(1);}50%{transform:scale(1.2);}100%{transform:scale(1);}}
+  @keyframes wrongAnim{0%{transform:translateX(0);}25%{transform:translateX(-8px);}50%{transform:translateX(8px);}75%{transform:translateX(-8px);}100%{transform:translateX(0);}}
+  .correctBtn{animation:correctAnim .5s ease;}.wrongBtn{animation:wrongAnim .5s ease;}
+  #nextBtn{display:none;position:absolute;bottom:15px;right:15px;width:120px;padding:.5rem .8rem;font-size:.9rem;border-radius:12px;box-shadow:0 4px 8px rgba(0,0,0,.2);cursor:pointer;transition:all .3s;}
+  #nextBtn:hover{background:#04a863;color:white;transform:scale(1.05);box-shadow:0 0 10px #04a863;}
+  .icon-text::before{margin-right:8px;font-size:1.2rem;}
+  .air::before{content:"💧";}.udara::before{content:"🌬️";}.tanah::before{content:"🌱";}.satwa::before{content:"🐝";}
+  .sampah::before{content:"🗑️";}.iklim::before{content:"☀️";}.hutan::before{content:"🌳";}
+  .generasi::before{content:"👦";}.syukur::before{content:"🙏";}.umum::before{content:"🌍";}
+  .decor-leaf{position:fixed;opacity:.7;z-index:-1;animation-name:fallLeaf;animation-iteration-count:infinite;animation-timing-function:linear;}
+  @keyframes fallLeaf{0%{transform:translateY(0) rotate(0deg);}25%{transform:translateY(25vh) rotate(90deg);}50%{transform:translateY(50vh) rotate(180deg);}75%{transform:translateY(75vh) rotate(270deg);}100%{transform:translateY(100vh) rotate(360deg);}}
+</style>
 </head>
 <body>
-  <!-- Dekorasi daun -->
-  <img src="https://img.icons8.com/emoji/48/leaf-fluttering-in-wind.png" class="decor-leaf leaf1">
-  <img src="https://img.icons8.com/emoji/48/leaf-fluttering-in-wind.png" class="decor-leaf leaf2">
-  <img src="https://img.icons8.com/emoji/48/leaf-fluttering-in-wind.png" class="decor-leaf leaf3">
-  <img src="https://img.icons8.com/emoji/48/leaf-fluttering-in-wind.png" class="decor-leaf leaf4">
 
-  <header>
-    <h1>🌱 Kuis Edukasi Lingkungan</h1>
-    <p>Belajar • Bermain • Menjaga Bumi</p>
-  </header>
-  <main>
-    <!-- Halaman awal -->
-    <section class="card" id="menu">
-      <h2>Selamat Datang!</h2>
-      <p>Pilih salah satu:</p>
-      <button onclick="startQuiz()">Mulai Kuis ➡️</button>
-      <button onclick="showExplanation()">Penjelasan ℹ️</button>
-    </section>
+<!-- Audio -->
+<audio id="leafSound" src="leaf.mp3" preload="auto"></audio>
+<audio id="bgMusic" src="soft_music.mp3" loop autoplay></audio>
+<audio id="audioCorrect" src="correct.mp3"></audio>
+<audio id="audioWrong" src="wrong.mp3"></audio>
 
-    <!-- Penjelasan -->
-    <section class="card" id="explanation" style="display:none">
-      <h2>Kenapa Harus Menjaga Lingkungan?</h2>
-      <p class="icon-text umum">
-        Lingkungan adalah tempat tinggal semua makhluk hidup. Udara, air, tanah, dan hutan adalah sumber daya
-        yang harus kita jaga bersama. Jika lingkungan rusak, maka kehidupan manusia dan hewan juga ikut terancam.
-        Setiap orang punya tanggung jawab untuk ikut menjaga kelestarian lingkungan. Tanpa itu, kita akan kehilangan keseimbangan alam.
-      </p>
-      <p class="icon-text air">
-        Air adalah sumber kehidupan yang sangat penting. Kita memerlukan air bersih untuk minum, memasak, dan mandi.
-        Jika air tercemar oleh limbah, maka kesehatan kita bisa terganggu. Sungai dan danau perlu dijaga agar tetap
-        jernih dan bersih. Dengan begitu, kebutuhan air untuk generasi mendatang juga tetap aman.
-      </p>
-      <p class="icon-text udara">
-        Udara bersih adalah hak semua makhluk hidup. Namun, polusi dari kendaraan dan pabrik membuat udara semakin
-        tercemar. Jika terus dibiarkan, penyakit pernapasan akan meningkat. Menanam pohon bisa membantu menyaring
-        udara dan menghasilkan oksigen. Maka dari itu, kita harus aktif mengurangi polusi udara.
-      </p>
-      <p class="icon-text tanah">
-        Tanah subur sangat dibutuhkan untuk pertanian. Tanah yang tercemar oleh sampah plastik atau bahan kimia
-        berbahaya tidak bisa menghasilkan tanaman sehat. Makanan yang tumbuh dari tanah tercemar juga berbahaya
-        bagi manusia. Oleh karena itu, kita harus mengelola limbah dengan benar. Jagalah tanah agar tetap subur demi masa depan.
-      </p>
-      <p class="icon-text satwa">
-        Hewan dan tumbuhan adalah bagian dari ekosistem. Jika salah satunya punah, maka keseimbangan alam akan terganggu.
-        Contohnya, hilangnya lebah bisa mengurangi proses penyerbukan tanaman. Tanpa penyerbukan, hasil pertanian bisa
-        berkurang drastis. Jadi, menjaga satwa liar berarti menjaga kehidupan manusia juga. Alam butuh semua makhluk hidup untuk tetap seimbang.
-      </p>
-      <p class="icon-text sampah">
-        Sampah adalah masalah besar di dunia modern. Setiap hari, manusia menghasilkan jutaan ton sampah. Jika tidak
-        dikelola, sampah menumpuk dan mencemari lingkungan. Cara terbaik adalah dengan mengurangi, menggunakan kembali,
-        dan mendaur ulang. Dengan kebiasaan ini, sampah bisa berkurang dan bumi tetap sehat.
-      </p>
-      <p class="icon-text iklim">
-        Perubahan iklim sudah menjadi kenyataan. Suhu bumi semakin panas dan cuaca tidak menentu. Banjir, kekeringan,
-        dan badai menjadi lebih sering terjadi. Hal ini sangat berbahaya bagi kehidupan manusia. Untuk itu, kita harus mengurangi emisi gas rumah kaca dan beralih ke energi terbarukan.
-      </p>
-      <p class="icon-text hutan">
-        Hutan adalah paru-paru dunia. Pohon menghasilkan oksigen yang kita hirup setiap hari. Sayangnya, hutan banyak
-        ditebang secara liar demi kepentingan ekonomi. Jika hutan hilang, maka udara bersih juga ikut berkurang. Kita bisa membantu dengan menanam pohon di sekitar rumah.
-      </p>
-      <p class="icon-text generasi">
-        Generasi muda memiliki peran penting dalam menjaga lingkungan. Mereka adalah penerus bangsa dan akan merasakan
-        dampak kerusakan alam di masa depan. Pendidikan tentang lingkungan harus dimulai sejak dini. Dengan begitu,
-        anak-anak terbiasa hidup ramah lingkungan. Jika semua generasi sadar, bumi akan tetap terjaga.
-      </p>
-      <p class="icon-text syukur">
-        Menjaga lingkungan adalah bentuk rasa syukur kita kepada Tuhan. Alam adalah anugerah yang diberikan untuk
-        dimanfaatkan dengan bijak. Jika kita merusaknya, kita juga yang akan rugi. Bumi adalah rumah satu-satunya bagi manusia. Jadi mari bersama-sama menjaga lingkungan demi masa depan yang lebih baik.
-      </p>
-      <button onclick="backToMenu()">⬅️ Kembali</button>
-    </section>
+<header>
+  <h1>🌱 Kuis Edukasi Lingkungan</h1>
+  <p>Belajar • Bermain • Menjaga Bumi</p>
+</header>
 
-    <!-- Kuis -->
-    <section class="card" id="quiz" style="display:none">
-      <h2 id="questionTitle"></h2>
-      <div id="question"></div>
-      <div id="options"></div>
-      <button id="nextBtn" style="display:none" onclick="nextQuestion()">Pertanyaan Selanjutnya ➡️</button>
-      <div id="score" class="result"></div>
-    </section>
+<main>
+<section class="card" id="menu">
+  <h2>Selamat Datang!</h2>
+  <p>Pilih salah satu:</p>
+  <button onclick="startQuiz()">Mulai Kuis ➡️</button>
+  <button onclick="showExplanation()">Penjelasan ℹ️</button>
+</section>
 
-    <!-- Hasil akhir -->
-    <section class="card" id="end" style="display:none">
-      <h2>🎉 Kuis Selesai!</h2>
-      <div id="finalScore"></div>
-      <p>
-        Menjaga lingkungan adalah tanggung jawab kita semua. Dengan langkah kecil seperti 
-        menghemat air, menanam pohon, dan mendaur ulang, kita bisa membuat perubahan besar 
-        untuk bumi yang lebih sehat.
-      </p>
-      <button onclick="restartQuiz()">⬅️ Kembali ke Awal</button>
-    </section>
-  </main>
+<section class="card" id="explanation" style="display:none">
+  <h2>Kenapa Harus Menjaga Lingkungan?</h2>
+  <p class="icon-text umum">Lingkungan adalah tempat tinggal semua makhluk hidup. Setiap tindakan kita memengaruhi keseimbangan alam. Sampah yang dibuang sembarangan dapat merusak ekosistem. Tanaman, hewan, dan manusia saling bergantung. Oleh karena itu, menjaga lingkungan adalah tanggung jawab bersama.</p>
+  <p class="icon-text air">Air bersih sangat penting bagi kehidupan. Kita harus menghemat dan melindungi sumber air. Sungai dan danau yang tercemar mengancam makhluk hidup. Daur ulang limbah dapat membantu mengurangi polusi air. Pendidikan tentang air bersih harus disebarkan luas.</p>
+  <p class="icon-text udara">Udara bersih mendukung kesehatan manusia dan hewan. Polusi udara dapat menyebabkan penyakit. Pohon membantu menyaring udara dan menghasilkan oksigen. Kendaraan ramah lingkungan perlu digunakan lebih banyak. Menanam pohon di perkotaan sangat dianjurkan.</p>
+  <p class="icon-text tanah">Tanah subur penting untuk pertanian. Limbah kimia bisa merusak tanah. Pengelolaan limbah organik dengan benar membantu kesuburan. Tanah yang sehat mendukung produksi pangan. Kita harus mencegah erosi dan kerusakan tanah.</p>
+  <p class="icon-text satwa">Hewan dan tumbuhan adalah bagian ekosistem. Kehilangan habitat mengancam spesies. Menjaga hutan dan taman penting bagi satwa. Perlindungan hewan langka wajib dilakukan. Kesadaran masyarakat sangat berperan dalam pelestarian satwa.</p>
+  <p class="icon-text sampah">Sampah yang menumpuk bisa menimbulkan penyakit. Pemilahan sampah menjadi organik dan anorganik penting. Daur ulang membantu mengurangi polusi. Kampanye kebersihan harus dilakukan rutin. Kita juga bisa membuat kompos dari sampah organik.</p>
+  <p class="icon-text iklim">Perubahan iklim memengaruhi kehidupan manusia. Pemanasan global menyebabkan bencana alam lebih sering. Penggunaan energi terbarukan bisa mengurangi polusi. Menghemat listrik dan air membantu lingkungan. Setiap individu memiliki peran dalam mitigasi perubahan iklim.</p>
+  <p class="icon-text hutan">Hutan adalah paru-paru bumi. Deforestasi merusak ekosistem dan mengurangi oksigen. Penanaman pohon penting untuk mengganti pohon yang ditebang. Hutan juga menjadi habitat satwa liar. Perlindungan hutan harus menjadi prioritas.</p>
+  <p class="icon-text generasi">Generasi muda memiliki tanggung jawab besar. Pendidikan lingkungan harus dimulai sejak dini. Kegiatan ramah lingkungan bisa diterapkan di sekolah. Kesadaran diri membentuk kebiasaan positif. Masa depan bumi ada di tangan generasi sekarang.</p>
+  <p class="icon-text syukur">Menjaga lingkungan adalah bentuk syukur kita. Alam yang bersih menunjukkan keharmonisan dengan Tuhan. Berbuat baik pada bumi adalah ibadah. Semua makhluk saling terkait dalam ekosistem. Kesadaran dan tindakan nyata akan membawa kebaikan bagi semua.</p>
+  <button onclick="backToMenu()">⬅️ Kembali</button>
+</section>
 
-  <script>
-    const questions = [
-      { q:"Apa manfaat utama menanam pohon?", options:["Menghasilkan oksigen","Menambah polusi","Mengurangi hewan"], answer:0 },
-      { q:"Apa yang harus kita lakukan dengan sampah plastik?", options:["Buang ke sungai","Daur ulang","Bakar sembarangan"], answer:1 },
-      { q:"Transportasi apa yang paling ramah lingkungan?", options:["Jalan kaki/sepeda","Mobil pribadi","Pesawat setiap hari"], answer:0 },
-      { q:"Hewan apa yang sering terancam karena sampah plastik di laut?", options:["Kucing","Penyu","Ayam"], answer:1 },
-      { q:"Energi terbarukan yang ramah lingkungan adalah...", options:["Batu bara","Matahari","Minyak bumi"], answer:1 },
-      { q:"Menghemat listrik bisa dilakukan dengan cara...", options:["Menyalakan lampu siang hari","Mematikan alat saat tidak digunakan","Membiarkan TV menyala terus"], answer:1 },
-      { q:"Air bersih bisa dihemat dengan cara...", options:["Membiarkan keran terbuka","Mandi berlama-lama","Menutup keran saat tidak digunakan"], answer:2 },
-      { q:"Kegiatan apa yang membantu mengurangi polusi udara?", options:["Menanam pohon","Membakar sampah","Menggunakan kendaraan bermotor terus"], answer:0 },
-      { q:"Sampah organik seperti sisa makanan sebaiknya...", options:["Dibuang sembarangan","Dijadikan kompos","Dibakar dengan plastik"], answer:1 },
-      { q:"Apa tujuan utama menjaga lingkungan?", options:["Merusak bumi","Mewariskan bumi sehat untuk generasi berikutnya","Menghasilkan sampah lebih banyak"], answer:1 }
-    ];
+<section class="card" id="quiz" style="display:none">
+  <h2 id="questionTitle"></h2>
+  <div id="question"></div>
+  <div id="options"></div>
+  <button id="nextBtn" onclick="nextQuestion()">➡️</button>
+  <div id="score" class="result"></div>
+</section>
 
-    let current = 0, score = 0;
+<section class="card" id="end" style="display:none">
+  <h2>🎉 Kuis Selesai!</h2>
+  <div id="finalScore"></div>
+  <p>Menjaga lingkungan adalah tanggung jawab kita semua. Semoga kamu terus peduli dan menjaga bumi tercinta!</p>
+  <button onclick="restartQuiz()">⬅️ Kembali ke Awal</button>
+</section>
+</main>
 
-    function showExplanation(){
-      document.getElementById("menu").style.display="none";
-      document.getElementById("explanation").style.display="block";
-    }
-    function backToMenu(){
-      document.getElementById("explanation").style.display="none";
-      document.getElementById("menu").style.display="block";
-    }
+<script>
+const questions=[
+  {q:"Apa manfaat utama menanam pohon?",options:["Menghasilkan oksigen","Menambah polusi","Mengurangi hewan"],answer:0},
+  {q:"Apa yang harus kita lakukan dengan sampah plastik?",options:["Buang ke sungai","Daur ulang","Bakar sembarangan"],answer:1},
+  {q:"Transportasi apa yang paling ramah lingkungan?",options:["Jalan kaki/sepeda","Mobil pribadi","Pesawat setiap hari"],answer:0},
+  {q:"Hewan apa yang sering terancam karena sampah plastik di laut?",options:["Kucing","Penyu","Ayam"],answer:1},
+  {q:"Energi terbarukan yang ramah lingkungan adalah...",options:["Batu bara","Matahari","Minyak bumi"],answer:1},
+  {q:"Menghemat listrik bisa dilakukan dengan cara...",options:["Menyalakan lampu siang hari","Mematikan alat saat tidak digunakan","Membiarkan TV menyala terus"],answer:1},
+  {q:"Air bersih bisa dihemat dengan cara...",options:["Membiarkan keran terbuka","Mandi berlama-lama","Menutup keran saat tidak digunakan"],answer:2},
+  {q:"Kegiatan apa yang membantu mengurangi polusi udara?",options:["Menanam pohon","Membakar sampah","Menggunakan kendaraan bermotor terus"],answer:0},
+  {q:"Sampah organik seperti sisa makanan sebaiknya...",options:["Dibuang sembarangan","Dijadikan kompos","Dibakar dengan plastik"],answer:1},
+  {q:"Apa tujuan utama menjaga lingkungan?",options:["Merusak bumi","Mewariskan bumi sehat untuk generasi berikutnya","Menghasilkan sampah lebih banyak"],answer:1}
+];
 
-    function startQuiz(){
-      document.getElementById("menu").style.display="none";
-      document.getElementById("quiz").style.display="block";
-      loadQuestion();
-    }
+let current=0,score=0;
 
-    function loadQuestion() {
-      document.getElementById("score").textContent = "";
-      if(current >= questions.length){
-        document.getElementById("quiz").style.display="none";
-        document.getElementById("end").style.display="block";
-        document.getElementById("finalScore").textContent = `Skor Akhir: ${score}/${questions.length}`;
-        return;
-      }
-      const q = questions[current];
-      document.getElementById("questionTitle").textContent = "Soal " + (current+1);
-      document.getElementById("question").textContent = q.q;
-      const optionsDiv = document.getElementById("options");
-      optionsDiv.innerHTML = "";
-      q.options.forEach((opt,i)=>{
-        const btn = document.createElement("button");
-        btn.textContent = opt;
-        btn.onclick = ()=>checkAnswer(i, btn);
-        optionsDiv.appendChild(btn);
-      });
-      document.getElementById("nextBtn").style.display="none";
-    }
+function showExplanation(){document.getElementById("menu").style.display="none";document.getElementById("explanation").style.display="block";}
+function backToMenu(){document.getElementById("explanation").style.display="none";document.getElementById("menu").style.display="block";}
+function startQuiz(){document.getElementById("menu").style.display="none";document.getElementById("quiz").style.display="block";loadQuestion();}
+function loadQuestion(){
+  document.getElementById("score").textContent="";
+  if(current>=questions.length){document.getElementById("quiz").style.display="none";document.getElementById("end").style.display="block";document.getElementById("finalScore").textContent=`Skor Akhir: ${score}/${questions.length}`;return;}
+  const q=questions[current];
+  document.getElementById("questionTitle").textContent="Soal "+(current+1);
+  document.getElementById("question").textContent=q.q;
+  const optionsDiv=document.getElementById("options");optionsDiv.innerHTML="";
+  q.options.forEach((opt,i)=>{
+    const btn=document.createElement("button");
+    btn.textContent=opt;
+    btn.onclick=()=>checkAnswer(i,btn);
+    optionsDiv.appendChild(btn);
+  });
+  document.getElementById("nextBtn").style.display="none";
+}
+function checkAnswer(i,btn){
+  const audioCorrect=document.getElementById("audioCorrect");
+  const audioWrong=document.getElementById("audioWrong");
+  if(i===questions[current].answer){
+    document.getElementById("score").textContent="✅ Benar!";
+    document.getElementById("score").className="result correct";
+    btn.style.backgroundColor="#28a745";
+    btn.style.color="white";
+    btn.classList.add("correctBtn");
+    score++;
+    audioCorrect.play();
+  } else {
+    document.getElementById("score").textContent="❌ Salah!";
+    document.getElementById("score").className="result wrong";
+    btn.style.backgroundColor="#dc3545";
+    btn.style.color="white";
+    btn.classList.add("wrongBtn");
+    audioWrong.play();
+  }
+  document.querySelectorAll("#options button").forEach(b=>b.disabled=true);
+  document.getElementById("nextBtn").style.display="block";
+}
+function nextQuestion(){current++;loadQuestion();}
+function restartQuiz(){current=0;score=0;document.getElementById("end").style.display="none";document.getElementById("menu").style.display="block";}
 
-    function checkAnswer(i, btn){
-      const q = questions[current];
-      if(i === q.answer){
-        document.getElementById("score").textContent = "✅ Benar!";
-        document.getElementById("score").className = "result correct";
-        score++;
-        btn.style.backgroundColor = "#28a745"; // hijau
-        btn.style.color = "white";
-      } else {
-        document.getElementById("score").textContent = "❌ Salah!";
-        document.getElementById("score").className = "result wrong";
-        btn.style.backgroundColor = "#dc3545"; // merah
-        btn.style.color = "white";
-      }
-      document.querySelectorAll("#options button").forEach(b=>b.disabled=true);
-      document.getElementById("nextBtn").style.display="block";
-    }
+// Daun jatuh realistis 50 daun
+for(let i=1;i<=50;i++){
+  let leaf=document.createElement("img");
+  leaf.src="https://img.icons8.com/emoji/48/leaf-fluttering-in-wind.png";
+  leaf.className="decor-leaf";
+  let left=Math.random()*95;
+  let delay=Math.random()*10;
+  let duration=10+Math.random()*15;
+  let size=20+Math.random()*30;
+  let opacity=0.5+Math.random()*0.5;
+  leaf.style.left=left+"%";
+  leaf.style.top=-50+"px";
+  leaf.style.width=size+"px";
+  leaf.style.opacity=opacity;
+  leaf.style.animationDuration=duration+"s";
+  leaf.style.animationDelay=delay+"s";
+  leaf.addEventListener('animationstart',()=>{
+    const leafSound=document.getElementById('leafSound');
+    leafSound.currentTime=0;
+    leafSound.volume=0.2;
+    leafSound.play().catch(e=>console.log("Audio blocked"));
+  });
+  document.body.appendChild(leaf);
+}
 
-    function nextQuestion(){
-      current++;
-      loadQuestion();
-    }
+// Audio tombol
+document.querySelectorAll('button').forEach(btn=>{
+  btn.addEventListener('click',()=>{const clickSound=new Audio('click.mp3');clickSound.volume=0.5;clickSound.play();});
+  btn.addEventListener('mouseover',()=>{const hoverSound=new Audio('hover.mp3');hoverSound.volume=0.3;hoverSound.play();});
+});
 
-    function restartQuiz(){
-      current=0; score=0;
-      document.getElementById("end").style.display="none";
-      document.getElementById("menu").style.display="block";
-    }
-  </script>
+// Mainkan bg music
+window.addEventListener('load',()=>{
+  const bgMusic=document.getElementById('bgMusic');
+  bgMusic.volume=0.2;
+  bgMusic.play().catch(e=>console.log("Autoplay blocked"));
+});
+</script>
+
+<!-- Tambahkan di akhir body, sebelum </body> -->
+<footer style="text-align:center; padding:1rem; background:#04a863; color:white; border-radius:20px; margin-top:2rem; box-shadow:0 4px 12px rgba(0,0,0,.2);">
+  By Ahza Nurdaffa Alkhalifi
+</footer>
+
 </body>
 </html>
